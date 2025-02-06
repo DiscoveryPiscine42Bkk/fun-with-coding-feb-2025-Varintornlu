@@ -28,20 +28,18 @@
 </body>
 <script>
     const color = ['red', 'green', 'blue'];
-    let count_color = 0;
+    let colorIndex = 0;
     const clickBalloon = () => {
         const balloon = document.querySelector('.balloon');
-        const current_width = parseInt(window.getComputedStyle(balloon).width);
-        const current_height = parseInt(window.getComputedStyle(balloon).height);
-        balloon.style.width = current_width + 10 + 'px';
-        balloon.style.height = current_height + 10 + 'px';
+        let current_size = parseInt(window.getComputedStyle(balloon).width);
+        current_size += 10;
+        balloon.style.width = current_size + 'px';
+        balloon.style.height = current_size + 'px';
 
-        count_color = (count_color + 1) % color.length;
-        balloon.style.backgroundColor = color[count_color];
-    
-        console.log(current_width);
+        colorIndex = (colorIndex + 1) % color.length;
+        balloon.style.backgroundColor = color[colorIndex];
 
-        if (current_width > 420) {
+        if (current_size >= 425) {
             explodeBalloon();
         }
     }
@@ -51,22 +49,22 @@
         balloon.style.width = 200 + 'px';
         balloon.style.height = 200 + 'px';
         balloon.style.backgroundColor = 'red';
-        count_color = 0;
+        colorIndex = 0;
     }
 
     const decreaseBalloon = () => {
         const balloon = document.querySelector('.balloon');
-        const current_width = parseInt(window.getComputedStyle(balloon).width);
-        const current_height = parseInt(window.getComputedStyle(balloon).height);
+        let current_size = parseInt(window.getComputedStyle(balloon).width);
 
-        if (current_width > 200) {
-            balloon.style.width = current_width - 5 + 'px';
-            balloon.style.height = current_height - 5 + 'px';
+        if (current_size > 200) {
+            current_size -= 5;
+            balloon.style.width = current_size + 'px';
+            balloon.style.height = current_size + 'px';
         }
 
 
-        count_color = (count_color - 1 + color.length) % color.length;
-        balloon.style.backgroundColor = color[count_color];
+        colorIndex = (colorIndex - 1 + color.length) % color.length;
+        balloon.style.backgroundColor = color[colorIndex];
 
     }
 

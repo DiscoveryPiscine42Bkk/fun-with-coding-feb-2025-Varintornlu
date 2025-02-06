@@ -12,15 +12,16 @@ function loadTodos() {
   }
 }
 
-function saveTodos() {
+function saveTodosCookies() {
   const todos = [];
   document.querySelectorAll("#ft_list div").forEach((todo) => {
     todos.push(todo.innerText);
   });
-  document.cookie = `todos=${JSON.stringify(todos)}; path=/;`;
+  document.cookie =
+    "todos=" + encodeURIComponent(JSON.stringify(todos)) + "; path=/;";
 }
 
-function addTodo(text, save = true) {
+function addTodo(text, saveFlag = true) {
   if (!text) return;
 
   const ftList = document.getElementById("ft_list");
@@ -29,24 +30,24 @@ function addTodo(text, save = true) {
   todo.classList.add("todo-item");
 
   todo.addEventListener("click", () => {
-    const confirmDelete = confirm("Do you really want to remove this task?");
+    const confirmDelete = confirm("Do you want to remove this TO-DO?");
     if (confirmDelete) {
       todo.remove();
-      saveTodos();
+      saveTodosCookies();
     }
   });
 
   ftList.prepend(todo);
 
-  if (save) saveTodos();
+  if (saveFlag) saveTodosCookies();
 }
 
 function getCookie(name) {
   const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
-  return match ? match[2] : null;
+  return match ? decodeURIComponent(match[2]) : null;
 }
 
-document.getElementById("newTaskBtn").addEventListener("click", () => {
-  const taskText = prompt("Enter a new task:");
-  if (taskText) addTodo(taskText);
+document.getElementById("newToDoBtn").addEventListener("click", () => {
+  const todoText = prompt("Enter a new TO-DO:");
+  if (todoText) addTodo(todoText);
 });

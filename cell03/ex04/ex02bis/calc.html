@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JAVA EX02</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <style>
@@ -46,18 +47,25 @@
         <option value="modulus">%</option>
     </select>
     <input type="text" id="secondNumber" placeholder="Second Number">
-    <button onclick="calculate()">Try me!</button>
+    <button id="button_cal">Try me!</button>
 </body>
 <script>
+    $(document).ready(function () {
+        $("#button_cal").click(function () {
+            calculate();
+        });
+    });
+
     setInterval(function () {
         alert('Please, use me...');
     }, 30000);
 
     function calculate() {
-        var firstNumber = document.getElementById("firstNumber").value;
-        var secondNumber = document.getElementById("secondNumber").value;
-        var operator = document.getElementById("operator").value;
-        var result = 0;
+        let firstNumber = $("#firstNumber").val();
+        let secondNumber = $("#secondNumber").val();
+        let operator = $("#operator").val();
+        let result = 0;
+
         let integerPattern = /^\d+$/;
 
         if (!integerPattern.test(firstNumber) || !integerPattern.test(secondNumber)) {
@@ -100,8 +108,6 @@
         alert("Result: " + result);
         console.log("Result: " + result);
     }
-
-
 </script>
 
 </html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JAVA EX01</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<style>
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+
+    .balloon {
+        width: 200px;
+        height: 200px;
+        background-color: red;
+        border-radius: 50%;
+    }
+</style>
+
+<body>
+    <div class="balloon"></div>
+</body>
+<script>
+    const color = ['red', 'green', 'blue'];
+    let colorIndex = 0;
+
+    $(document).ready(function () {
+        $(".balloon").click(function () {
+            const $ballon = $(".balloon");
+            let currentSize = parseInt($ballon.css("width"));
+
+            currentSize += 10;
+
+            $ballon.css({
+                width: (currentSize) + 'px',
+                height: (currentSize) + 'px',
+            });
+
+            colorIndex = (colorIndex + 1) % color.length;
+            $ballon.css("background-color", color[colorIndex]);
+
+            if (currentSize >= 425) {
+                explodeBalloon();
+            }
+
+        });
+        $(".balloon").mouseleave(function () {
+            const $ballon = $(".balloon");
+            let currentSize = parseInt($ballon.css("width"));
+
+            if (currentSize > 200) {
+                currentSize -= 5;
+                $ballon.css({
+                    width: (currentSize) + 'px',
+                    height: (currentSize) + 'px',
+                });
+            }
+
+            colorIndex = (colorIndex - 1 + color.length) % color.length;
+            $ballon.css("background-color", color[colorIndex]);
+        });
+    });
+
+    function explodeBalloon() {
+        const $balloon = $(".balloon");
+        $balloon.css({
+            width: '200px',
+            height: '200px',
+            backgroundColor: 'red'
+        });
+        colorIndex = 0;
+    }
+
+</script>
+
+</html>
